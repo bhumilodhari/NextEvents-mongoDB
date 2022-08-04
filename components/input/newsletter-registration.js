@@ -1,5 +1,6 @@
 import classes from './newsletter-registration.module.css';
 import { useRef } from 'react';
+import axiosInstance from '../../helpers/axios';
 
 function NewsletterRegistration() {
   const emailInputRef = useRef();
@@ -7,16 +8,17 @@ function NewsletterRegistration() {
     event.preventDefault();
 
     const enteredEmail = emailInputRef.current.value;
+    axiosInstance.post('newsletter', { email: enteredEmail }).then((data) => console.log(data))
 
-    fetch('api/newsletter', {
-      method: 'POST',
-      body: JSON.stringify({ email: enteredEmail }),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
+    // fetch('http://localhost:3000/api/newsletter', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ email: enteredEmail }),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    // })
+    // .then((response) => response.json())
+    // .then((data) => console.log(data))
 
     // fetch user input (state or refs)
     // optional: validate input

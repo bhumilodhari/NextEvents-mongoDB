@@ -2,13 +2,16 @@ import { MongoClient } from "mongodb";
 
 export async function connectData() {
     const client = await MongoClient.connect(
-        'mongodb+srv://NextEvents:Guuux7K3zfcgxutB@cluster0.dmlqlfs.mongodb.net/?retryWrites=true&w=majority'
-    );
+        process.env.MONGODB_URL);
+    //     const client = await MongoClient.connect(
+    // );
+    // 'mongodb+srv://bhumi:ylqdi5p9kLQFLNGS@cluster0.dmlqlfs.mongodb.net/EventList?retryWrites=true&w=majority');
+    console.log(client)
     return client;
 }
 
 export async function insertDocument(client, collection, document) {
-    const db = client.db();
+    const db = await client.db();
     const result = await db.collection(collection).insertOne(document);
     return result;
 }

@@ -17,9 +17,10 @@ async function handler(req, res) {
             res.status(500).json({ message: 'Connecting to the database failed!' });
             return;
         }
-
+        let data = null;
         try {
-            await insertDocument(client, 'email', { email: userEmail });
+            data = await insertDocument(client, 'email', { email: userEmail });
+            console.log(data)
             client.close();
         } catch (error) {
             res.status(500).json({ message: 'Connecting to the database failed!' });
